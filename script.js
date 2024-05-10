@@ -1,35 +1,43 @@
-// Smooth scrolling for navigation links
-document.querySelectorAll('nav a').forEach(link => {
-  link.addEventListener('click', e => {
-    e.preventDefault();
-    const targetId = e.currentTarget.getAttribute('href');
-    const targetElement = document.querySelector(targetId);
-    targetElement.scrollIntoView({ behavior: 'smooth' });
+// Sample product data (you can replace this with your own product data)
+const products = [
+  { name: "Vintage Watch", price: 500 },
+  { name: "Antique Chair", price: 1000 },
+  { name: "Crystal Vase", price: 300 },
+  // Add more products as needed
+];
+
+// Function to display products on the page
+function displayProducts() {
+  const productGrid = document.querySelector('.product-grid');
+  productGrid.innerHTML = '';
+
+  products.forEach(product => {
+    const productCard = document.createElement('div');
+    productCard.classList.add('product');
+
+    const productName = document.createElement('h2');
+    productName.textContent = product.name;
+
+    const productPrice = document.createElement('p');
+    productPrice.textContent = `$${product.price}`;
+
+    const addToCartButton = document.createElement('button');
+    addToCartButton.textContent = 'Add to Cart';
+    addToCartButton.addEventListener('click', () => addToCart(product));
+
+    productCard.appendChild(productName);
+    productCard.appendChild(productPrice);
+    productCard.appendChild(addToCartButton);
+
+    productGrid.appendChild(productCard);
   });
-});
+}
 
-// Add to cart functionality
-const cartButtons = document.querySelectorAll('.product-card button');
-const cartCount = document.querySelector('.cart span');
-let cartItems = 0;
+// Function to add a product to the cart
+function addToCart(product) {
+  // Here you can implement functionality to add the product to the cart
+  console.log(`Added ${product.name} to cart.`);
+}
 
-cartButtons.forEach(button => {
-  button.addEventListener('click', () => {
-    cartItems++;
-    cartCount.textContent = cartItems;
-    // You can add more functionality here, like updating the cart UI or sending data to a server
-  });
-});
-
-// Animate product cards on hover
-const productCards = document.querySelectorAll('.product-card');
-
-productCards.forEach(card => {
-  card.addEventListener('mouseenter', () => {
-    card.style.transform = 'scale(1.05)';
-  });
-
-  card.addEventListener('mouseleave', () => {
-    card.style.transform = 'scale(1)';
-  });
-});
+// Initialize the page
+displayProducts();
